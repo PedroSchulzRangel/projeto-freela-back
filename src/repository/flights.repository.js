@@ -34,3 +34,9 @@ export function searchForFlight (id) {
         FROM flights f JOIN cities c ON c.id=f.id_city_dep WHERE f.id_city_arr=$1;`,[id]);
     return selectFlightsById;
 }
+
+export function searchForFilteredFlights(id, precoMinimo, precoMaximo){
+    const selectFlights = db.query(`SELECT f.departure,f.price, c.name 
+    FROM flights f JOIN cities c ON c.id=f.id_city_dep WHERE f.id_city_arr=$1 AND f.price >=$2 AND f.price <=$3;`,[id, precoMinimo, precoMaximo]);
+return selectFlights;
+}

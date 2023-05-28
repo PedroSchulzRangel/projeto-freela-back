@@ -1,4 +1,4 @@
-import { searchForCity, searchForAirlineById, insertFlightIntoDB, searchForFlight} from "../repository/flights.repository.js";
+import { searchForCity, searchForAirlineById, insertFlightIntoDB, searchForFlight, searchForFilteredFlights} from "../repository/flights.repository.js";
 
 export async function insertFlights(req, res){
     const {id_city_dep,
@@ -38,13 +38,19 @@ export async function insertFlights(req, res){
 export async function getFlightsByCityId (req, res) {
     
     const {id} = req.params;
+    const precoMinimo = parseInt(req.query.precoMinimo);
+    const precoMaximo = parseInt(req.query.precoMaximo);
 
     try{
         const city = searchForCity(id);
 
         if(city.rowCount === 0) return res.status(404).send("Esta cidade não existe");
 
+        if(precoMinimo === undefined && precoMaximo === undefined){
         const {rows: flights} = await searchForFlight(id);
+        } else {
+            const {rows: flights} = await searchForFilteredFlights(id, precoMinimo, precoMaximo);
+        }
 
         res.status(200).send(flights);
 
