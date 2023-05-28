@@ -29,8 +29,8 @@ export async function insertFlightIntoDB(id_city_dep,
 }
 
 export function searchForFlight (id) {
-    
+
     const selectFlightsById = db.query(`SELECT f.departure,f.price, c.name 
-        FROM flights f JOIN cities c ON c.id=f.id_city_arr WHERE f.id_city_arr=$1;`,[id]);
+        FROM flights f JOIN cities c ON c.id=f.id_city_dep WHERE f.id_city_arr=$1;`,[id]);
     return selectFlightsById;
 }
