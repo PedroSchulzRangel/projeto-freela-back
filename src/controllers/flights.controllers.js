@@ -40,6 +40,10 @@ export async function getFlightsByCityId (req, res) {
     const {id} = req.params;
     const precoMinimo = parseInt(req.query.precoMinimo);
     const precoMaximo = parseInt(req.query.precoMaximo);
+    
+    console.log(precoMinimo);
+
+    console.log(precoMaximo);
 
     try{
         const city = searchForCity(id);
