@@ -6,6 +6,6 @@ import { insertFlights, getFlightsByCityId} from "../controllers/flights.control
 const flightsRouter = Router();
 
 flightsRouter.post("/flights", validateFlightsSchema(flightsSchema), insertFlights);
-flightsRouter.get("/flights/:id", getFlightsByCityId);
+flightsRouter.get("/flights/city/:id", getFlightsByCityId);
 
 export default flightsRouter;
