@@ -1,4 +1,4 @@
-import { searchForCity, searchForAirlineById, insertFlightIntoDB} from "../repository/flights.repository.js";
+import { searchForCity, searchForAirlineById, insertFlightIntoDB, searchForFlight} from "../repository/flights.repository.js";
 
 export async function insertFlights(req, res){
     const {id_city_dep,
@@ -29,6 +29,24 @@ export async function insertFlights(req, res){
             price);
 
         res.sendStatus(201);
+
+    } catch (error){
+        res.status(500).send(error.message);
+    }
+}
+
+export async function getFlightsByCityId (req, res) {
+    
+    const {id} = req.params;
+
+    try{
+        const city = searchForCity(id);
+
+        if(city.rowCount === 0) return res.status(404).send("Esta cidade não existe");
+
+        const {rows: flights} = await searchForFlight(id);
+
+        res.status(200).send(flights);
 
     } catch (error){
         res.status(500).send(error.message);
