@@ -10,14 +10,14 @@ export function searchForAirlineById(id){
     return airlineSearch;
 }
 
-export async function insertFlightIntoDB(body){
-    const {id_city_dep,
-        id_city_arr,
-        id_airline,
-        departure,
-        arrival,
-        price} = body;
-
+export async function insertFlightIntoDB(id_city_dep,
+    id_city_arr,
+    id_airline,
+    departure,
+    arrival,
+    price)
+    {
+    
     await db.query(`INSERT INTO flights
         (id_city_dep,id_city_arr,id_airline,departure,arrival,price)
         VALUES ($1,$2,$3,$4,$5,$6)`,[id_city_dep,
