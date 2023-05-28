@@ -5,7 +5,8 @@ export async function insertFlights(req, res){
         id_city_arr,
         id_airline,
         departure,
-        arrival} = req.body;
+        arrival,
+        price} = req.body;
 
     try{
         const cityDep = await searchForCity(id_city_dep);
@@ -20,7 +21,12 @@ export async function insertFlights(req, res){
 
         if(departure >= arrival) return res.status(400).send("datas e horários inválidos");
 
-        insertFlightIntoDB(req.body);
+        insertFlightIntoDB(id_city_dep,
+            id_city_arr,
+            id_airline,
+            departure,
+            arrival,
+            price);
 
         res.sendStatus(201);
 
