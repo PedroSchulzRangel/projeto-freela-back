@@ -40,17 +40,13 @@ export async function getFlightsByCityId (req, res) {
     const {id} = req.params;
     const precoMinimo = parseInt(req.query.precoMinimo);
     const precoMaximo = parseInt(req.query.precoMaximo);
-    
-    console.log(precoMinimo);
-
-    console.log(precoMaximo);
 
     try{
         const city = searchForCity(id);
 
         if(city.rowCount === 0) return res.status(404).send("Esta cidade não existe");
 
-        if(precoMinimo === undefined && precoMaximo === undefined){
+        if(req.query.precoMinimo === undefined && req.query.precoMaximo === undefined){
         const {rows: flights} = await searchForFlight(id);
         } else {
             const {rows: flights} = await searchForFilteredFlights(id, precoMinimo, precoMaximo);
