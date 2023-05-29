@@ -40,3 +40,20 @@ export function searchForFilteredFlights(id, precoMinimo, precoMaximo){
     FROM flights f JOIN cities c ON c.id=f.id_city_dep WHERE f.id_city_arr=$1 AND f.price >=$2 AND f.price <=$3;`,[id, precoMinimo, precoMaximo]);
 return selectFlights;
 }
+
+export function searchForFlightById (id){
+    const selectFlight = db.query(`SELECT * FROM flights WHERE id=$1`,[id]);
+    return selectFlight;
+}
+
+export async function searchForFlightDetails(id){
+    
+    const {rows: flightDetails} = await db.query(`SELECT c.name AS city_of_arrival, a.name AS airline, f.departure, f.arrival, f.price
+        FROM flights f JOIN cities c ON f.id_city_arr=c.id JOIN airlines a ON f.id_airline=a.id
+        WHERE f.id=$1`,[id]);
+
+    const {rows: cityOfDeparture} = await db.query(`SELECT f.id, c.name AS city_of_departure
+    FROM flights f JOIN cities c ON f.id_city_dep=c.id WHERE f.id=$1`,[id]);
+
+    return {flightDetails,cityOfDeparture};
+}

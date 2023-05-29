@@ -1,4 +1,10 @@
-import { searchForCity, searchForAirlineById, insertFlightIntoDB, searchForFlight, searchForFilteredFlights} from "../repository/flights.repository.js";
+import { searchForCity,
+    searchForAirlineById,
+    insertFlightIntoDB,
+    searchForFlight,
+    searchForFilteredFlights,
+    searchForFlightById,
+    searchForFlightDetails} from "../repository/flights.repository.js";
 
 export async function insertFlights(req, res){
     const {id_city_dep,
@@ -66,7 +72,19 @@ export async function getFlightsById (req, res) {
     const {id} = req.params;
 
     try{
-        
+        const flight = await searchForFlightById(id);
+
+        if(flight.rowCount === 0) return res.status(404).send("o voo buscado não existe");
+
+        const {flightDetails,cityOfDeparture} = searchForFlightDetails(id);
+
+        const body={
+            ...flightDetails,
+            ...cityOfDeparture
+        }
+
+        res.status(200).send(body);
+
     } catch (error){
         res.status(500).send(error.message);
     }
