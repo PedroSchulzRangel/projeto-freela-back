@@ -76,14 +76,9 @@ export async function getFlightsById (req, res) {
 
         if(flight.rowCount === 0) return res.status(404).send("o voo buscado não existe");
 
-        const {flightDetails,cityOfDeparture} = searchForFlightDetails(id);
+        const flightDetails = searchForFlightDetails(id);
 
-        const body={
-            ...flightDetails,
-            ...cityOfDeparture
-        }
-
-        res.status(200).send(body);
+        res.status(200).send(flightDetails);
 
     } catch (error){
         res.status(500).send(error.message);
