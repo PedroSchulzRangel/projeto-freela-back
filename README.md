@@ -12,7 +12,7 @@ This is a web application with which people can plan their vacation travels by c
 * Filter of accomodation prices
 * Filter of flights prices
 * Request for flight or accomodation details
-* Flight details includes departure and arrival date and time, price, airline company and city of departure amd arrival
+* Flight details includes departure and arrival date and time, price, airline company and city of departure and arrival
 * Accomodation details includes hotel name, rooms available and price per day  
 
 By using this app any user can easily plan their travels by searching for a destination city, flights and hotels available.
