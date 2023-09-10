@@ -15,7 +15,35 @@ This is a web application with which people can plan their vacation travels by c
 * Flight details includes departure and arrival date and time, price, airline company and city of departure amd arrival
 * Accomodation details includes hotel name, rooms available and price per day  
 
+By using this app any user can easily plan their travels by searching for a destination city, flights and hotels available.
 
+### Technologies
 
+The following database, tools and frameworks were used in the construction of the project:
 
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)
+![Nodemon](https://img.shields.io/badge/NODEMON-%23323330.svg?style=for-the-badge&logo=nodemon&logoColor=%BBDEAD)
 
+### How to run
+
+1. Clone this repository
+2. Install dependencies
+
+```
+npm i
+```
+3. Run the back-end with:
+
+```
+npm start
+```
+
+or
+
+```
+npm run dev
+```
