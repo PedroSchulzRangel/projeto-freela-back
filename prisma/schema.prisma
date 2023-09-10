@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model airlines {
+  id      Int       @id @default(autoincrement())
+  name    String
+  flights flights[]
+}
+
+model amenities {
+  id   Int    @id @default(autoincrement())
+  name String
+}
+
+model cities {
+  id                                  Int       @id @default(autoincrement())
+  name                                String    @unique
+  flights_flights_id_city_depTocities flights[] @relation("flights_id_city_depTocities")
+  flights_flights_id_city_arrTocities flights[] @relation("flights_id_city_arrTocities")
+  hotels                              hotels[]
+}
+
+model flights {
+  id                                 Int      @id @default(autoincrement())
+  id_city_dep                        Int
+  id_city_arr                        Int
+  id_airline                         Int
+  departure                          DateTime @db.Timestamptz(6)
+  arrival                            DateTime @db.Timestamptz(6)
+  price                              Int
+  cities_flights_id_city_depTocities cities   @relation("flights_id_city_depTocities", fields: [id_city_dep], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "flights_fk0")
+  cities_flights_id_city_arrTocities cities   @relation("flights_id_city_arrTocities", fields: [id_city_arr], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "flights_fk1")
+  airlines                           airlines @relation(fields: [id_airline], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "flights_fk2")
+}
+
+model hotels {
+  id                  Int      @id @default(autoincrement())
+  id_city             Int
+  name                String
+  address             String
+  price               Int
+  description         String
+  id_imagem_principal Int
+  cities              cities   @relation(fields: [id_city], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "hotels_fk0")
+  images              images[]
+}
+
+model images {
+  id       Int    @id @default(autoincrement())
+  id_hotel Int
+  url      String
+  hotels   hotels @relation(fields: [id_hotel], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "images_fk0")
+}
